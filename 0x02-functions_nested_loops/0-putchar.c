@@ -17,5 +17,5 @@ int main(void)
 	_putcher('r');
 	_putcher('\n');
 
-	return (0);
+	return 0;
 }
