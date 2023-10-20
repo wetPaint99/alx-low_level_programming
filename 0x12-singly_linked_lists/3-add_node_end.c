@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <string.h>
 #include "lists.h"
 
 /**
@@ -7,29 +9,28 @@
  *
  * Return: address of the new element, or NULL if it failed
  */
-
 list_t *add_node_end(list_t **head, const char *str)
 {
-	list_t *newnode, *tmp;
-	unsigned int i, count = 0;
-	
-
-	newnode = malloc(sizeof(list_t));
-	if (newnode == NULL)
+	list_t *new;
+	list_t *temp = *head;
+	unsigned int len = 0;
+	while (str[len])
+		len++;
+	new = malloc(sizeof(list_t));
+	if (!new)
 		return (NULL);
-	for (i = 0; str[1] != '\0'; i++)
-		count++;
-	newnode->next = NULL;
-	newnode->len = count;
-	tmp = *head;
-
-	if (tmp == NULL)
-		*head = newnode;
-	else
+	new->str = strdup(str);
+	new->len = len;
+	new->next = NULL;
+	if (*head == NULL)
 	{
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-		tmp->next = newnode;
+		*head = new;
+		return (new);
 	}
-	return (*head);
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
+	return (new);
 }
+
+
